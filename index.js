@@ -1,10 +1,7 @@
-let name ="bob";
-let age = 67;
+console.log('1'==1); 
+console.log(1==true);
+console.log("false"==false);
+console.log("false"==true); 
 
-console.log(typeof(name))
-console.log(typeof(age))
-
-console.log(`Hello my name is ${name}, I'm ${age} years old`);
-
-
-console.log(`I was born in ${2020 - age}`)
+if("false")
+   console.log("Hello false!!")
