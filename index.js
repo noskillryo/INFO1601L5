@@ -1,26 +1,93 @@
-function createPerson(name, height, weight) {
-  return { name: name, height: height, weight: weight };
-}
+let bob = {
+  fname: "bob",
+  lname: "smith",
+  age: 18,
+  height: 6,
+  transcript:[
+    {
+      course: 'INFO 1603',
+      grades: [ 89, 34, 67 ]
+    },
+    {
+      course: 'INFO 1601',
+      grades: [ 89, 34, 67 ]
+    }
+  ]
+};
 
-function calcBMI(weight, height) {
-  return weight / (height * height);
-}
+let sally = {
+  fname: "sally",
+  lname: "smith",
+  age: 18,
+  height: 6,
+  transcript:[
+    {
+      course: 'INFO 1601',
+      grades: [ 100, 89, 79 ]
+    }
+  ]
+};
 
-function avgBMI(people) {
-  let sum = 0;
-  for (let person of people) {
-    //sum the bmi of each person
-    sum += calcBMI(person.weight, person.height);
+let paul = {
+  fname: "paul",
+  lname: "smith",
+  age: 18,
+  height: 6,
+  transcript:[
+    {
+      course: 'INFO 1600',
+      grades: [ 89, 34, 67 ]
+    }
+  ]
+};
+
+const students = [bob, sally, paul];
+
+function getAverageGrade(student, course){
+  for(let i = 0; i<student.transcript.length; i++){
+    if (student.transcript[i].course===course) {
+      const grades=student.transcript[i].grades;
+      let sum = 0;
+      for(let j = 0; j<grades.length; j++){
+        sum+= grades[j];
+      }
+      return sum/grades.length;
+    }
   }
-  //calculate average
-  return sum / people.length;
+  return -1;
 }
 
-//create a collection of people
-let people = [
-  createPerson("Sally", 60, 2.5),
-  createPerson("Ben", 81, 3),
-  createPerson("Shelly", 50, 1.7)
-];
+function getAssignmentMark(student, course, num){
+  for(let i= 0; i < student.transcript.length; i++){
+    if (student.transcript[i].course=== course) {
+      const grades = student.transcript[i].grades;
+      if(num >= 0 && num < grades.length){
+        return grades[num];
+      }
+    }
+  }
+  return -1;
+}
 
-console.log(avgBMI(people));
+function averageAssessment(students, courseName, assignment){
+  let total = 0;
+  let count = 0;
+  
+  for(let i = 0; i < students.length; i++){
+    const mark = getAssignmentMark(students[i], courseName, assignment);
+    if(mark !== -1){
+      total += mark;
+      count++;
+    }
+  }
+  
+  if (count === 0){
+    return -1;
+  }
+  
+  return total / count;
+}
+
+console.log(getAverageGrade(bob, 'INFO 1603')); 
+console.log(getAssignmentMark(sally, 'INFO 1601', 1)); 
+console.log(averageAssessment(students, 'INFO 1601', 0)); 
