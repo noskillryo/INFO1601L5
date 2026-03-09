@@ -1,18 +1,26 @@
-function happyPrint(string){
- console.log("😀: "+string);
+function createPerson(name, height, weight) {
+  return { name: name, height: height, weight: weight };
 }
 
-function sadPrint(string){
- console.log("😢: "+string);
+function calcBMI(weight, height) {
+  return weight / (height * height);
 }
 
-//This high-order function adds 2 parameters and passes the answer to the callback
-function add(a, b, callback){
-   let ans = a + b;
-   callback(ans);// call the callback and pass the answer to it
+function avgBMI(people) {
+  let sum = 0;
+  for (let person of people) {
+    //sum the bmi of each person
+    sum += calcBMI(person.weight, person.height);
+  }
+  //calculate average
+  return sum / people.length;
 }
 
-//call add passing the callbacks to it
+//create a collection of people
+let people = [
+  createPerson("Sally", 60, 2.5),
+  createPerson("Ben", 81, 3),
+  createPerson("Shelly", 50, 1.7)
+];
 
-add(5, 10, happyPrint);
-add(11, 12, sadPrint);
+console.log(avgBMI(people));
